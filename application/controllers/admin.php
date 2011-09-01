@@ -9,7 +9,12 @@ class Admin extends CI_Controller {
 	
 	function __construct() 
 	{
-		parent::__construct();		
+		parent::__construct();
+		
+		// Add package path so that CI can find all of our bits and pieces
+		$this->load->add_package_path(APPPATH . 'third_party/instant_admin/');
+		
+		// Load the config and a fwe helpers and such.
 		$this->config->load('admin');
 		$this->load->helper('url');
 		$this->load->database();
