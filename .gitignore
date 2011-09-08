@@ -20,3 +20,5 @@ license.txt
 nbproject/
 system/
 user_guide/
+
+application/controllers/admin_old.php
