@@ -6,7 +6,6 @@ application/controllers/index.html
 application/controllers/welcome.php
 application/core/
 application/errors/
-application/helpers/
 application/hooks/
 application/index.html
 application/language/
@@ -32,3 +31,5 @@ application/libraries/index.html
 application/libraries/Profiler.php
 
 application/libraries/Console.php
+
+application/helpers/index.html
