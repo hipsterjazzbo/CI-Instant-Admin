@@ -10,7 +10,6 @@
 		
 		$this->ci->load->database();
 		$this->ci->load->library('session');
-		$this->ci->load->helper('Erkanaauth_helper');
 	}
 	
 	/**
