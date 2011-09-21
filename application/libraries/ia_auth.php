@@ -1,16 +1,16 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
  
- class Erkanaauth {
+ class IA_Auth {
  
-	var $CI;
+	var $ci;
 	
-	function Erkanaauth() {
-		$this->CI =& get_instance();
+	function __construct() {
+		$this->ci =& get_instance();
 		log_message('debug', 'Authorization class initialized.');
 		
-		$this->CI->load->database();
-		$this->CI->load->library('session');
-		$this->CI->load->helper('Erkanaauth_helper');
+		$this->ci->load->database();
+		$this->ci->load->library('session');
+		$this->ci->load->helper('Erkanaauth_helper');
 	}
 	
 	/**
@@ -24,13 +24,13 @@
 	 * @return	boolean
 	 */	
 	function try_login($condition = array()) {
-		$this->CI->db->select('id');
-		$query = $this->CI->db->getwhere('users', $condition, 1, 0);
+		$this->ci->db->select('id');
+		$query = $this->ci->db->getwhere('users', $condition, 1, 0);
 		if ($query->num_rows != 1) {
 			return FALSE;
 		} else {
 			$row = $query->row();
-			$this->CI->session->set_userdata(array('user_id'=>$row->id));
+			$this->ci->session->set_userdata(array('user_id'=>$row->id));
 			return TRUE;
 		}
 	}
@@ -45,8 +45,8 @@
 	 * @return	boolean
 	 */
 	function try_session_login() {
-		if ($this->CI->session->userdata('user_id')) {
-			$query = $this->CI->db->query('SELECT COUNT(*) AS total FROM users WHERE id = ' . $this->CI->session->userdata('user_id'));
+		if ($this->ci->session->userdata('user_id')) {
+			$query = $this->ci->db->query('SELECT COUNT(*) AS total FROM users WHERE id = ' . $this->ci->session->userdata('user_id'));
 			$row = $query->row();
 			if ($row->total != 1) {
 				// Bad session - kill it
@@ -70,7 +70,7 @@
 	 * @return	void
 	 */
 	 function logout() {
-		$this->CI->session->set_userdata(array('user_id'=>FALSE));
+		$this->ci->session->set_userdata(array('user_id'=>FALSE));
 	}
 	
 	
@@ -83,9 +83,9 @@
 	 * @param	string	field to return
 	 * @return	string
 	 */
-	function getField($field = '') {
-		$this->CI->db->select($field);
-		$query = $this->CI->db->getwhere('users', array('id'=>$this->CI->session->userdata('user_id')), 1, 0);
+	function get_field($field = '') {
+		$this->ci->db->select($field);
+		$query = $this->ci->db->getwhere('users', array('id'=>$this->ci->session->userdata('user_id')), 1, 0);
 	  if ($query->num_rows() == 1) {
 			$row = $query->row();
 			return $row->$field;
@@ -100,10 +100,10 @@
 	 * @access	public
 	 * @return	string
 	 */
-	function getRole() {
-		$this->CI->db->select('roles.name');
-		$this->CI->db->JOIN('roles', 'users.role_id = roles.id');
-		$query = $this->CI->db->getwhere('users', array('users.id'=>$this->CI->session->userdata('user_id')), 1, 0);
+	function get_role() {
+		$this->ci->db->select('roles.name');
+		$this->ci->db->JOIN('roles', 'users.role_id = roles.id');
+		$query = $this->ci->db->getwhere('users', array('users.id'=>$this->ci->session->userdata('user_id')), 1, 0);
 		if ($query->num_rows() == 1) {
 			$row = $query->row();
 			return $row->name;
