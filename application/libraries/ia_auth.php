@@ -36,31 +36,6 @@
 	
 	
 	/**
-	 * Attempt to login using session stored information
-	 *
-	 * Example: $this->auth->try_session_login()
-	 *
-	 * @access	public
-	 * @return	boolean
-	 */
-	function try_session_login() {
-		if ($this->ci->session->userdata('user_id')) {
-			$query = $this->ci->db->query('SELECT COUNT(*) AS total FROM users WHERE id = ' . $this->ci->session->userdata('user_id'));
-			$row = $query->row();
-			if ($row->total != 1) {
-				// Bad session - kill it
-				$this->logout();
-				return FALSE;
-			} else {
-				return TRUE;
-			}
-		} else {
-			return FALSE;
-		}
-	}
-	
-	
-	/**
 	 * Logs a user out
 	 *
 	 * Example: $this->erkanaauth->logout()
@@ -101,7 +76,7 @@
 	 */
 	function get_role() {
 		$this->ci->db->select('roles.name');
-		$this->ci->db->JOIN('roles', 'users.role_id = roles.id');
+		$this->ci->db->join('roles', 'users.role_id = roles.id');
 		$query = $this->ci->db->getwhere('users', array('users.id'=>$this->ci->session->userdata('user_id')), 1, 0);
 		if ($query->num_rows() == 1) {
 			$row = $query->row();
