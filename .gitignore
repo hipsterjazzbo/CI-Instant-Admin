@@ -10,9 +10,11 @@ application/helpers/
 application/hooks/
 application/index.html
 application/language/
+application/libraries/
 application/logs/
 application/third_party/index.html
 application/models/
+application/views/
 index.php
 license.txt
 nbproject/
@@ -20,15 +22,3 @@ system/
 user_guide/
 
 application/controllers/admin_old.php
-
-application/views/profiler_template.php
-
-application/views/index.html
-
-application/views/welcome_message.php
-
-application/libraries/index.html
-
-application/libraries/Profiler.php
-
-application/libraries/Console.php
