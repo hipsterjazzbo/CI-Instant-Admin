@@ -396,7 +396,7 @@ width: 90%;
 float: left;
 }
 
-.module header {
+.module header, .module .table-header {
 height: 38px;
 width: 100%;
 background: #F1F1F4 url(../images/secondary_bar.png) repeat-x;
@@ -489,18 +489,18 @@ margin-bottom: 8px}
 
 /* Content Manager */
 
-.tablesorter {
+.datatable {
 width: 100%;
 margin: -5px 0 0 0;
 }
 
-.tablesorter td{
+.datatable td{
 margin: 0;
 padding: 0;
 border-bottom: 1px dotted #ccc;
 }
 
-.tablesorter thead tr {
+.datatable thead tr {
 height: 34px;
 background: url(../images/table_sorter_header.png) repeat-x;
 text-align: left;
@@ -508,12 +508,15 @@ text-indent: 10px;
 cursor: pointer;
 }
 
-.tablesorter td {
+.datatable td {
 padding: 15px 10px;
 }
 
-.tablesorter input[type=image] {
+.datatable input[type=image] {
 margin-right: 10px;}
+
+.dataTables_length { float:left; margin:5px 0 0 10px; }
+.dataTables_filter { float:right; margin:5px 10px 0 0; }
 
 ul.tabs {
 	margin: 3px 10px 0 0;

@@ -4,10 +4,8 @@ class Members extends CI_Controller {
 	
 	function __construct() 
 	{
-		parent::__construct();
-		
-		$this->load->library('instant_admin');
-		
+		parent::__construct();		
+		$this->load->library('instant_admin');		
 		$this->output->enable_profiler(TRUE);
 	}
 	

@@ -3,6 +3,7 @@
 class Instant_admin {
 
 	private $ci;
+	private $auth;
 	private $config;
 	private $default_actions = array('add', 'edit', 'delete', 'import', 'export', 'print');
 	public $pages;
@@ -10,12 +11,21 @@ class Instant_admin {
 	public function __construct()
 	{
 		$this->ci =& get_instance();
+		include 'ia_auth.php';
 		include 'ia_page.php';
 		include 'ia_action.php';
 		
+		$this->ci->load->helper('url');
+		
+		$this->auth = new IA_Auth();
+		
+		if ( ! $this->auth->logged_in() || ! $this->auth->is_admin())
+		{
+			//redirect('admin/auth/login');
+		}
+		
 		if ($this->ci->router->fetch_method() == 'index')
 		{
-			$this->ci->load->helper('url');
 			redirect($this->ci->router->fetch_directory() . $this->ci->router->fetch_class() . '/view');
 		}
 		
@@ -35,9 +45,9 @@ class Instant_admin {
 		return $this->pages[$this->ci->router->fetch_class()];
 	}
 
-	public function new_page($name, $db_table, $actions)
+	public function new_page($single_name, $plural_name, $slug, $db_table, $actions, $condition)
 	{
-		return new IA_Page($name, $db_table, $actions);
+		return new IA_Page($single_name, $plural_name, $slug, $db_table, $actions, $condition);
 	}
 
 	protected function get_menu_config()
@@ -70,27 +80,34 @@ class Instant_admin {
 	{
 		foreach ($this->config as $key => $page)
 		{
-			if (empty($page['single_name']) || empty($page['plural_name']))
-			{
-				$this->ci->show_error('You must specify both a singular and plural name in config/admin.php');
-			}
-			
-			if (empty($page['actions']))
-			{
-				$page['actions'] = $this->default_actions;
-			}
-			
-			array_unshift($page['actions'], 'view');
-			
-			$page['actions'] = $this->build_action_objects($page['actions'], $page['plural_name']);
-			
-			$this->pages[$key] = new IA_Page($page['single_name'], $page['plural_name'], $key, $page['table'], $page['actions']);
+			$this->build_page_object($key, $page);
 		}
 	}
 	
-	private function build_action_objects($actions, $plural_name)
+	public function build_page_object($key, $page)
 	{
-		$this->ci->load->helper('url');
+		if (empty($page['single_name']) || empty($page['plural_name']))
+		{
+			$this->ci->show_error('You must specify both a singular and plural name in config/admin.php');
+		}
+
+		if ( ! isset($page['actions']) || empty($page['actions']))
+		{
+			$page['actions'] = $this->default_actions;
+		}
+
+		array_unshift($page['actions'], 'view');
+
+		$page['actions'] = $this->build_action_objects($page);
+		$page['condition'] = (! isset($page['condition'])) ? null : $page['condition'];
+
+		$this->pages[$key] = $this->new_page($page['single_name'], $page['plural_name'], $key, $page['table'], $page['actions'], $page['condition']);
+	}
+
+
+	private function build_action_objects($page)
+	{		
+		extract($page);
 		
 		foreach ($actions as $action)
 		{
@@ -98,7 +115,7 @@ class Instant_admin {
 			{
 				$options = array(
 					'key' => $action,
-					'title' => ucfirst($action) . ' ' . $plural_name,
+					'title' => ($action == 'add') ? ucfirst($action) . ' ' . $single_name : ucfirst($action) . ' ' . $plural_name,
 					'icon' => site_url() . 'ia_icons/' . $action . '.png'
 				);
 				

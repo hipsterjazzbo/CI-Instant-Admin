@@ -10,13 +10,11 @@ class Accounts extends CI_Controller {
 	}
 	
 	function view()
-	{
-		$members = $this->instant_admin->new_page('Accounts', 'accounts');
+	{		
+		$this->instant_admin->page()->add_column('Name', 'name');
+		$this->instant_admin->page()->add_column('Industry', 'industry');
 		
-		$members->add_column('First Name', 'first_name');
-		$members->add_column('Last Name', 'last_name');
-		
-		$members->load();
+		$this->instant_admin->page()->load();
 	}
 	
 //	function accounts()

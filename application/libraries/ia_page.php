@@ -6,7 +6,7 @@ class IA_Page {
 	public $single_name;
 	public $plural_name;
 	public $slug;
-	private $db_table;
+	private $db_tables;
 	private $primary_key;
 	private $headings      = array();
 	private $fields        = array();
@@ -14,14 +14,15 @@ class IA_Page {
 	private $table_actions = array();
 	public $page_actions   = array();
 
-	public function __construct($single_name, $plural_name, $slug, $db_table, array $actions)
+	public function __construct($single_name, $plural_name, $slug, $db_table, array $actions, $condition)
 	{
 		$this->ci =& get_instance();
-
+		
 		$this->single_name = $single_name;
 		$this->plural_name = $plural_name;
 		$this->slug        = $slug;
-		$this->db_table    = $db_table;
+		$this->db_tables   = is_array($db_table) ? $db_table : array($db_table);
+		$this->condition   = $condition;
 		$this->set_actions($actions);
 		
 		$this->ci->load->library('table');
@@ -61,8 +62,8 @@ class IA_Page {
 
 	private function build_table()
 	{
-		$this->headings[] = 'stuff';
-		$tmpl = array ( 'table_open'  => '<table cellspacing="0" class="tablesorter">' );
+		$this->headings[] = 'Actions';
+		$tmpl = array ( 'table_open'  => '<table cellspacing="0" class="datatable">' );
 		$this->ci->table->set_template($tmpl);
 		$this->ci->table->set_heading($this->headings);
 
@@ -79,17 +80,49 @@ class IA_Page {
 		$query = $this->ci->db->query("SHOW INDEX FROM {$table} WHERE Key_name = 'PRIMARY'");
 		$row   = $query->row();
 		
-		return $row->Column_name;
+		return $table . '.' . $row->Column_name;
 	}
 
 	private function get_rows()
 	{
-		$this->fields[] = $this->get_primary_key($this->db_table) . ' AS ia_primary_key';
+		$this->fields[] = $this->get_primary_key($this->db_tables[0]) . ' AS ia_primary_key';
 
 		$this->ci->db->select(implode(',', $this->fields), FALSE);
-		$query = $this->ci->db->get($this->db_table);
+		$this->ci->db->from($this->db_tables[0]);
+		$this->maybe_build_joins();
+		$query = $this->ci->db->get();
+		$rows  = $query->result_array();
+		
+		foreach ($rows as $k => $row)
+		{
+			$rows[$k] = $this->get_row_actions($row);
+		}
+		
+		return $rows;
+	}
+	
+	private function maybe_build_joins()
+	{
+		if (count($this->db_tables) == 2)
+		{
+			$this->ci->db->join($this->db_tables[1], $this->condition);
+		}
+	}
 
-		return $query->result_array();
+
+	private function get_row_actions($row)
+	{
+		$key = array_pop($row);
+		$row_actions = '';
+		
+		foreach ($this->table_actions as $table_action)
+		{
+			$row_actions .= '<a href="/admin/' . $this->slug . '/' . $table_action->key . '/' . $key . '">' . ucfirst($table_action->key) . '</a> ';
+		}
+		
+		$row[] = $row_actions;
+		
+		return $row;
 	}
 	
 	private function set_actions($actions)
