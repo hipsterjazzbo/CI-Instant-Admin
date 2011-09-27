@@ -68,7 +68,7 @@
 			<hr/>
 
 			<?php foreach ($menu_items as $menu_item): ?>
-				<h3><?= $menu_item['heading'] ?></h3>
+				<h3><a href="<?= site_url('admin/' . $menu_item['slug'] . '/view') ?>"><?= $menu_item['heading'] ?></a></h3>
 				<ul class="toggle">
 					<?php foreach ($menu_item['items'] as $item): ?>
 						<li class="icn_new_article"><a href="<?= site_url('admin/' . $menu_item['slug'] . '/' . $item->key) ?>"><?= $item->title ?></a></li>
@@ -76,7 +76,7 @@
 				</ul>
 			<?php endforeach; ?>
 
-			<h3>Users</h3>
+			<h3><a href="<?= site_url('admin/auth/view') ?>">Users</a></h3>
 			<ul class="toggle">
 				<li class="icn_new_article"><a href="<?= site_url('admin/auth/view_users') ?>">View Users</a></li>
 				<li class="icn_new_article"><a href="<?= site_url('admin/auth/add_user') ?>">Add User</a></li>
