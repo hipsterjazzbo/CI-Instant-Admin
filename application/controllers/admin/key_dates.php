@@ -6,24 +6,25 @@ class Key_dates extends CI_Controller {
 	{
 		parent::__construct();		
 		$this->load->library('instant_admin');
+		$this->page = $this->instant_admin->page();
 	}
 	
 	function view()
 	{
-		$this->instant_admin->page()->add_column('Date', 'date_date');
-		$this->instant_admin->page()->add_column('Title', 'date_title');
+		$this->page->add_column('Date', 'date_date');
+		$this->page->add_column('Title', 'date_title');
 		
-		$this->instant_admin->page()->load();
+		$this->page->load();
 	}
 	
-//	function accounts()
-//	{
-//		$accounts = $this->instant_admin->new_page('Accounts', 'accounts');
-//		
-//		$accounts->add_column('Account', 'name');
-//		
-//		$accounts->load();
-//	}
+	function edit($primary_key)
+	{
+		$this->page->set_record($primary_key);
+		$this->page->add_field('Event Title', 'date_title');
+		$this->page->add_field('Date', 'date_date', 'date');
+		
+		$this->page->load();
+	}
 }
 
 /* End of file key-dates.php */
