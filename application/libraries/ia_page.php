@@ -32,7 +32,7 @@ class IA_Page {
 		$this->primary_key_field = $this->get_primary_key_field($this->db_tables[0]);
 		$this->condition = $condition;
 		$this->set_actions($actions);
-		$this->action = $this->ci->router->fetch_method();
+ 		$this->action = $this->ci->router->fetch_method();
 
 		$this->ci->load->library('table');
 	}
