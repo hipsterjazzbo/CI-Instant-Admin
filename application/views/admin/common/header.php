@@ -94,6 +94,6 @@
 		</aside><!-- end of sidebar -->
 
 		<section id="main" class="column">
-			<?php if(isset($message)): ?>
+			<?php if($this->session->flashdata('message')): $message = $this->session->flashdata('message'); ?>
 				<h4 class="alert_<?= $message['level'] ?>"><?= $message['message'] ?></h4>
 			<?php endif; ?>

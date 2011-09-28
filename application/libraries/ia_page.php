@@ -11,6 +11,7 @@ class IA_Page {
 	public $slug;
 	private $db_tables;
 	private $primary_key;
+	private $primary_key_field;
 	private $headings = array();
 	private $db_fields = array();
 	private $data = array();
@@ -18,6 +19,7 @@ class IA_Page {
 	public $page_actions = array();
 	private $view;
 	private $form_fields = array();
+	private $action;
 
 	public function __construct($single_name, $plural_name, $slug, $db_table, array $actions, $condition)
 	{
@@ -27,8 +29,10 @@ class IA_Page {
 		$this->plural_name = $plural_name;
 		$this->slug = $slug;
 		$this->db_tables = is_array($db_table) ? $db_table : array($db_table);
+		$this->primary_key_field = $this->get_primary_key_field($this->db_tables[0]);
 		$this->condition = $condition;
 		$this->set_actions($actions);
+		$this->action = $this->ci->router->fetch_method();
 
 		$this->ci->load->library('table');
 	}
@@ -52,9 +56,7 @@ class IA_Page {
 	{
 		$this->get_page_details();
 
-		$action = $this->ci->router->fetch_method();
-
-		switch ($action)
+		switch ($this->action)
 		{
 			case 'view':
 				$this->build_table();
@@ -62,6 +64,7 @@ class IA_Page {
 				break;
 
 			case 'edit':
+			case 'add':
 				$this->build_form();
 				$this->view = 'manage_form';
 				break;
@@ -72,7 +75,8 @@ class IA_Page {
 
 	private function get_page_details()
 	{
-		$this->data['page']['name'] = $this->plural_name;
+		$this->data['page']['name']   = $this->plural_name;
+		$this->data['page']['action'] = $this->action;
 		$this->get_menu_items();
 	}
 
@@ -102,7 +106,7 @@ class IA_Page {
 		{
 			$this->db_fields[] = $form_field['db_field'];
 		}
-
+		
 		$this->data['row']         = $this->get_row();
 		$this->data['form_fields'] = $this->form_fields;
 	}
@@ -123,7 +127,7 @@ class IA_Page {
 
 		if (!empty($this->primary_key))
 		{
-			$this->ci->db->where($this->get_primary_key_field($this->db_tables[0]), $this->primary_key);
+			$this->ci->db->where($this->primary_key_field, $this->primary_key);
 			$query = $this->ci->db->get();
 			return $query->row();
 		}
@@ -134,7 +138,7 @@ class IA_Page {
 
 	private function get_rows()
 	{
-		$this->db_fields[] = $this->get_primary_key_field($this->db_tables[0]) . ' AS ia_primary_key';
+		$this->db_fields[] = $this->primary_key_field . ' AS ia_primary_key';
 
 		$rows = $this->get_row();
 
@@ -161,7 +165,7 @@ class IA_Page {
 
 		foreach ($this->table_actions as $table_action)
 		{
-			$row_actions .= '<a href="/admin/' . $this->slug . '/' . $table_action->key . '/' . $key . '">' . ucfirst($table_action->key) . '</a> ';
+			$row_actions .= '<a href="/admin/' . $this->slug . '/' . $table_action->key . '/' . $key . '" class="action_' . $table_action->key . '">' . ucfirst($table_action->key) . '</a> ';
 		}
 
 		$row[] = $row_actions;
@@ -189,10 +193,33 @@ class IA_Page {
 			}
 		}
 	}
-
-	function set_record($primary_key)
+	
+	public function set_message($level, $message)
 	{
-		$this->primary_key = $primary_key;
+		$this->ci->session->set_flashdata('message', array('level' => $level, 'message' => $message));
+	}
+	
+	public function update_record($id)
+	{
+		$this->ci->db->where($this->primary_key_field, $id);
+		$this->ci->db->update($this->db_tables[0], $this->ci->input->post());
+		
+		$this->set_message('success', 'Record updated');
+		redirect($this->ci->router->fetch_directory() . $this->ci->router->fetch_class() . '/view');
+	}
+	
+	public function delete_record($id)
+	{
+		$this->ci->db->delete($this->db_tables[0], array($this->primary_key_field => $id));
+		$this->set_message('success', 'Record successfully deleted');
+	}
+	
+	public function add_record()
+	{
+		$this->ci->db->insert($this->db_tables[0], $this->ci->input->post());
+		
+		$this->set_message('success', 'Record successfully added');
+		redirect($this->ci->router->fetch_directory() . $this->ci->router->fetch_class() . '/view');
 	}
 
 }

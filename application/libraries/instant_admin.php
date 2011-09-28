@@ -16,6 +16,7 @@ class Instant_admin {
 		include 'ia_action.php';
 		
 		$this->ci->load->helper('url');
+		$this->ci->load->library('session');
 		
 		$this->auth = new IA_Auth();
 		
@@ -32,12 +33,14 @@ class Instant_admin {
 		$this->ci->config->load('admin');
 		$this->config = $this->ci->config->item('admin_pages');
 		
-		if (empty($this->config))
-		{
-			// Show error
-		}
-		
 		$this->build_page_objects();
+		
+		if ($this->ci->router->fetch_method() == 'delete')
+		{
+			$params = array_slice($this->ci->uri->rsegments, 2);
+			$this->page()->delete_record($params[0]);
+			redirect($this->ci->router->fetch_directory() . $this->ci->router->fetch_class() . '/view');
+		}
 	}
 	
 	public function page()
