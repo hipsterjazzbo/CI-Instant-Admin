@@ -13,7 +13,7 @@
 
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="../../css/style.css">
 
 	<script src="js/libs/modernizr-2.0.6.min.js"></script>
 </head>
@@ -23,13 +23,13 @@
 	<header>
 		<nav id="main-menu">
 			<ul>
-				<li><a href="#">Home</a></li>
-				<li><a href="#">The Contest in 1-2-3</a></li>
-				<li><a href="#">Prizes</a></li>
-				<li><a href="#">Check Your Score</a></li>
-				<li id="record-sales-button"><a href="#">Record Sales</a></li>
-				<li><a href="#">Terms &amp; Conditions</a></li>
-				<li><a href="#">FAQ's</a></li>
+				<li><a href="/page/home">Home</a></li>
+				<li><a href="/page/contest_1">The Contest in 1-2-3</a></li>
+				<li><a href="/page/prizes_1go">Prizes</a></li>
+				<li><a href="/page/check_score">Check Your Score</a></li>
+				<li id="record-sales-button"><a href="/page/record_sales">Record Sales</a></li>
+				<li><a href="/page/terms_and_conditions">Terms &amp; Conditions</a></li>
+				<li><a href="/page/faq">FAQ's</a></li>
 			</ul>
 		</nav>
 		
@@ -43,11 +43,11 @@
 	
 	<section id="main" role="main">
 		<div id="left">
-		
+			<?php $this->load->view($page . '_left'); ?>
 		</div>
 		
 		<div id="right">
-		
+			<?php $this->load->view($page . '_right'); ?>
 		</div>
 	</section>
 	

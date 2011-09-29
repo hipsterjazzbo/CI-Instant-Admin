@@ -89,7 +89,7 @@
 
 			<footer>
 				<hr />
-				<p><strong>Copyright &copy; <?= date('Y') ?> Wasabi Digital</strong></p>
+				<!--<p><strong>Copyright &copy; <?= date('Y') ?> Wasabi Digital</strong></p>-->
 			</footer>
 		</aside><!-- end of sidebar -->
 
