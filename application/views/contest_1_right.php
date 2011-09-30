@@ -19,7 +19,7 @@
 	
 	<table>
 		<tr>
-			<td><strong>Value A:</strong></td>
+			<td width="50"><strong>Value A:</strong></td>
 			<td>applies if you enter your sales online within 10 days of the sales date (i.e sales date is 12 December, docket to be entered online by 22 December at the very latest).</td>
 		</tr>
 		

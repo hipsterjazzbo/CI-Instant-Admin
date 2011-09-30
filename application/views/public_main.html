@@ -13,9 +13,9 @@
 
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
-	<link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+	<link rel="stylesheet" href="../../css/style.css">
 
-	<script src="<?= base_url('js/libs/modernizr-2.0.6.min.js') ?>"></script>
+	<script src="js/libs/modernizr-2.0.6.min.js"></script>
 </head>
 <body>
 
@@ -24,8 +24,8 @@
 		<nav id="main-menu">
 			<ul>
 				<li><a href="/page/home">Home</a></li>
-				<li><a href="/page/contest_1">The Contest in 1-2-3</a></li>
-				<li><a href="/page/prizes_1go">Prizes</a></li>
+				<li><a href="/page/contest">The Contest in 1-2-3</a></li>
+				<li><a href="/page/prizes">Prizes</a></li>
 				<li><a href="/page/check_score">Check Your Score</a></li>
 				<li id="record-sales-button"><a href="/page/record_sales">Record Sales</a></li>
 				<li><a href="/page/terms_and_conditions">Terms &amp; Conditions</a></li>
@@ -43,11 +43,11 @@
 	
 	<section id="main" role="main">
 		<div id="left">
-			<?php $this->load->view($page . '_left'); ?>
+		
 		</div>
 		
 		<div id="right">
-			<?php $this->load->view($page . '_right'); ?>
+		
 		</div>
 	</section>
 	
@@ -57,7 +57,7 @@
 </div> <!--! end of #container -->
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="<?= base_url('js/libs/jquery-1.6.2.min.js') ?>"><\/script>')</script>
+<script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 
 <script>
 	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID

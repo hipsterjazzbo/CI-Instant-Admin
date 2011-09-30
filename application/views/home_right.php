@@ -1,0 +1,1 @@
+<img class="big" src="<?= base_url('images/page2/p2-pic-tigers.png') ?>" />

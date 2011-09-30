@@ -1,3 +1,6 @@
+/* @override 
+	http://autoadmin.wasabi.co/css/style.css */
+
 /*
  * HTML5 Boilerplate
  *
@@ -50,8 +53,6 @@ body, button, input, select, textarea { font-family: sans-serif; color: #222; }
    ========================================================================== */
 
 a { color: #00e; }
-a:visited { color: #551a8b; }
-a:focus { outline: thin dotted; }
 
 /* Improve readability when focused and hovered in all browsers: people.opera.com/patrickl/experiments/keyboard/test */
 a:hover, a:active { outline: 0; }
@@ -201,12 +202,167 @@ table { border-collapse: collapse; border-spacing: 0; }
    Author: Caleb Fidecaro
    ========================================================================== */
 
+body {
+	background: url(../images/generic/body-bkg.png) repeat-x #e6ebe1;
+}
+
+img.big {
+	margin: -30px 0 0 -40px;
+}
+
+span.bullet {
+	display: inline-block;
+	height: 8px;
+	background-color: #336bd7;
+	margin-right: 5px;
+	width: 8px;
+}
+
+p, ul, ol {
+	margin: 0 0 8px;
+}
+
+p.blue {
+	color: #336bd7;
+}
+
+h3 {
+	border: 1px solid #fff;
+	display: inline-block;
+	background-color: #7f8080;
+	color: #fff;
+	text-transform: uppercase;
+	padding: 1px 13px 0 5px;
+	font-weight: normal;
+	font-style: normal;
+	position: relative;
+	margin-bottom: 7px;
+}
+
+h3:before {
+	content: "";
+	display: block;
+	height: 17px;
+	width: 17px;
+	background-color: #336bd7;
+	position: absolute;
+	top: -1px;
+	left: -19px;
+	border: 1px solid #fff;
+}
+
+h4 {
+	margin: 7px 0 0;
+	color: #336bd7;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+h4:first-child {
+	margin-top: 0;
+}
+
+table {
+	margin-bottom: 4px;
+}
+
+td {
+	vertical-align: top;
+}
+
 #container {
 	width: 960px;
 }
 
 header {
+	background-image: url(../images/generic/banner-pages2to14.png);
+	height: 153px;
+	margin: 8px 0 10px;
+}
+
+nav li {
+	float: left;
+	height: 18px;
+	border-right: 1px solid #fff;
+	font: 11px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	letter-spacing: 0;
+	padding: 6px 6px 0;
+}
+
+nav li a {
+	color: #fff;
+	text-decoration: none;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+#main-menu {
+	float: left;
+	width: 600px;
+	overflow: hidden;
+	border-left: 1px solid #fff;
+	margin: 108px 0 0 -1px;
+}
+
+#secondary-menu {
+	float: right;
+	margin-top: 108px;
+	border-left: 1px solid #fff;
+}
+
+#main {
+	background-color: #e7ebe1;
+	overflow: hidden;
+}
+
+#left, #right {
+	float: left;
+}
+
+#left {
+	width: 290px;
+	margin-right: 24px;
+	height: 579px;
+	margin-left: 32px;
+	text-align: justify;
+	word-spacing: -1px;
+	font-size: 11px;
+}
+
+#right {
+	width: 528px;
+	height: 515px;
+	background-image: url(../images/generic/blank-photo-frame.png);
+	padding: 30px 40px;
+	font-size: 11px;
+	word-spacing: -1px;
+	letter-spacing: 0;
+}
+
+#right .col-left, #right .col-right {
+	float: left;
+	width: 249px;
+	text-align: justify;
+}
+
+#right .col-left {
+	margin-right: 30px;
+}
+
+#right .col-right {
 	
+}
+
+footer {
+	text-align: right;
+	color: #a2a19d;
+	font-size: 11px;
+	padding-right: 25px;
+	height: 30px;
+	background: url(../images/generic/panasonic-swoosh.png) no-repeat;
+	padding-top: 36px;
+	margin-top: -34px;
 }
 
 
