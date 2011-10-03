@@ -34,11 +34,8 @@ class IA_Auth {
 
 		$credentials = array(
 			'email' => $email,
-			'password' => $this->hash($password)
+			'password' => $password
 		);
-                
-                // Just to be safe
-                unset($password);
 
 		$query = $this->ci->db->getwhere('ia_users', $credentials, 1, 0);
 
