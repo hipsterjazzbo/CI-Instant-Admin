@@ -226,6 +226,14 @@ p.blue {
 	color: #336bd7;
 }
 
+.red {
+	color: #d03c30;
+}
+
+.big {
+	font-size: 15px;
+}
+
 h3 {
 	border: 1px solid #fff;
 	display: inline-block;

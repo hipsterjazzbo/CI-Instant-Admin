@@ -25,8 +25,8 @@
 			<ul>
 				<li><a href="/page/home">Home</a></li>
 				<li><a href="/page/contest_1">The Contest in 1-2-3</a></li>
-				<li><a href="/page/prizes_1go">Prizes</a></li>
-				<li><a href="/page/check_score">Check Your Score</a></li>
+				<li><a href="/page/prizes_1">Prizes</a></li>
+				<li><a href="/page/check_score_graph">Check Your Score</a></li>
 				<li id="record-sales-button"><a href="/page/record_sales">Record Sales</a></li>
 				<li><a href="/page/terms_and_conditions">Terms &amp; Conditions</a></li>
 				<li><a href="/page/faq">FAQ's</a></li>
@@ -35,7 +35,7 @@
 		
 		<nav id="secondary-menu">
 			<ul>
-				<li><a href="http://www.panasonic.co.nz">www.panasonic.co.nz</a></li>
+				<li><a target="_blank" href="http://www.panasonic.co.nz">www.panasonic.co.nz</a></li>
 				<li><a href="/admin/auth/logout">logout</a></li>
 			</ul>
 		</nav>

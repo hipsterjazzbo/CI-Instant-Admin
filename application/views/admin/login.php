@@ -11,5 +11,7 @@
 	</head>
 	<body>
 		<h1>Login</h1>
+                
+                <p>Redirect to <a href="<?= $_SERVER['HTTP_REFERER'] ?>"><?= $_SERVER['HTTP_REFERER'] ?></a></p>
 	</body>
 </html>

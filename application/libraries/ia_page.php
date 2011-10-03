@@ -36,6 +36,29 @@ class IA_Page {
 
 		$this->ci->load->library('table');
 	}
+        
+        public function __call($name, $arguments) {
+            if (file_exists(APPPATH . "models/{$this->slug}_model.php"))
+            {
+                $model_class = ucfirst($this->slug) . '_model';
+                $model = new $model_class();
+                
+                if (method_exists($model, $name))
+                {
+                    return call_user_func_array(array($model, $name), $arguments);
+                }
+                
+                else
+                {
+                    $this->ci->show_error("Function \"{$name}()\" does not exist in \"\${$this->slug}_model\"s");
+                }
+            }
+            
+            else
+            {
+                $this->ci->show_error("Tried calling \"\${$this->slug}_model->{$name}()\", but model does not exist.");
+            }
+        }
 
 	public function add_column($column_name, $db_field)
 	{

@@ -22,7 +22,10 @@ class Instant_admin {
 		
 		if ( ! $this->auth->logged_in() || ! $this->auth->is_admin())
 		{
-			//redirect('admin/auth/login');
+                    if ($this->ci->router->fetch_class() != 'auth')
+                    {
+                        redirect('admin/auth/login', 'refresh');
+                    }
 		}
 		
 		if ($this->ci->router->fetch_method() == 'index')
