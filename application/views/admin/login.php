@@ -1,10 +1,4 @@
-<?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+<?php $this->load->helper('form'); ?>
 <html>
 	<head>
 		
@@ -12,6 +6,11 @@
 	<body>
 		<h1>Login</h1>
                 
-                <p>Redirect to <a href="<?= $_SERVER['HTTP_REFERER'] ?>"><?= $_SERVER['HTTP_REFERER'] ?></a></p>
+                <?= form_open('admin/auth/do_login') ?>
+                    <?= form_hidden('redirect', $_SERVER['HTTP_REFERER']) ?>
+                    <?= form_input('email') ?>
+                    <?= form_password('password') ?>
+                    <?= form_submit('submit', 'Login') ?>
+                <?= form_close() ?>
 	</body>
 </html>

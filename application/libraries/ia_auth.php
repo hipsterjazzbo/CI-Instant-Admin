@@ -34,10 +34,10 @@ class IA_Auth {
 
 		$credentials = array(
 			'email' => $email,
-			'password' => $password
+			'hash' => $this->hash($password)
 		);
 
-		$query = $this->ci->db->getwhere('ia_users', $credentials, 1, 0);
+		$query = $this->ci->db->get_where('ia_users', $credentials, 1, 0);
 
 		if ($query->num_rows != 1)
 		{
@@ -68,7 +68,7 @@ class IA_Auth {
 	/**
 	 * Checks whether user is logged in
 	 * 
-	 * @return int/bool User id if loggged in, FALSE if not
+	 * @return int/bool User id if logged in, FALSE if not
 	 */
 	function logged_in()
 	{
@@ -191,7 +191,7 @@ class IA_Auth {
 	 */
 	function is_admin()
 	{
-		return $this->get_role() === 'admin';
+		return $this->get_role() === 'Admin';
 	}
 	
 	

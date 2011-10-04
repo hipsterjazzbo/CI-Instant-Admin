@@ -125,15 +125,6 @@ color: #666666}
 color: #77BACE;
 }
 
-.user a.logout_user {
-float: left;
-display: block;
-width: 16px;
-height: 35px;
-text-indent: -5000px;
-background: url(../images/template/icn_logout.png) center no-repeat;
-}
-
 /* Breadcrumbs */
 
 section#secondary_bar .breadcrumbs_container {

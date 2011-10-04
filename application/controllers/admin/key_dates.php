@@ -20,12 +20,11 @@ class Key_dates extends CI_Controller {
 	function edit($id, $submit = false)
 	{
 		if($submit) $this->page->update_record($id);
-		
-		$this->page->set_record($id);
-		$this->page->add_field('Event Title', 'date_title');
+                
+                $this->page->add_field('Event Title', 'date_title');
 		$this->page->add_field('Date', 'date_date');
 		
-		$this->page->load();
+		$this->page->load($id);
 	}
 	
 	function add($submit = false)
