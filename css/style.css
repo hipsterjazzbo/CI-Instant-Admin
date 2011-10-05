@@ -282,7 +282,7 @@ td {
 	width: 960px;
 }
 
-header {
+#header {
 	background-image: url(../images/generic/banner-pages2to14.png);
 	height: 153px;
 	margin: 8px 0 10px;
@@ -361,6 +361,14 @@ nav li a {
 
 #right .col-right {
 	
+}
+
+body#register #header {
+	background-image: url(../images/page1/p1-banner.png);
+}
+
+body#register #header nav {
+	display: none;
 }
 
 .front-form {

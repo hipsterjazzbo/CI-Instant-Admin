@@ -12,16 +12,18 @@ class Register extends CI_Controller {
 
     function index()
     {
-        $this->load->model('page_model');        
+        $this->load->model('page_model');
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|matches[repeat_email]');
+        $this->form_validation->set_rules('retail_group', 'Retail Group', 'trim');
+        $this->form_validation->set_rules('store', 'Store', 'trim');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|matches[repeat_email]|callback_email_unique');
         $this->form_validation->set_rules('repeat_email', 'Repeat Email', 'trim|required|valid_email');
-        $this->form_validation->set_rules('mobile', 'Mobile', 'trim|required');
-        $this->form_validation->set_rules('work_phone', 'Work Phone', 'trim|required');
+        $this->form_validation->set_rules('mobile', 'Mobile', 'trim');
+        $this->form_validation->set_rules('work_phone', 'Work Phone', 'trim');
         $this->form_validation->set_rules('address_number', 'Number', 'trim|required');
         $this->form_validation->set_rules('address_street', 'Street', 'trim|required');
         $this->form_validation->set_rules('address_suburb', 'Suburb', 'trim|required');
@@ -32,10 +34,12 @@ class Register extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE)
         {
-            $data['groups'] = $this->page_model->get_groups();
-            $data['stores'] = $this->page_model->get_stores(1, true);
-            $data['page'] = 'register';
+            $group = set_value('retail_group', 1);
             
+            $data['groups'] = $this->page_model->get_groups();
+            $data['stores'] = $this->page_model->get_stores($group, TRUE);
+            $data['page'] = 'register';
+
             $this->load->view('public_main', $data);
         }
         else
@@ -43,6 +47,17 @@ class Register extends CI_Controller {
             $this->page_model->add_member();
             redirect('page/home');
         }
+    }
+
+    function email_unique($email)
+    {
+        if ($this->page_model->member_exists($email))
+        {
+            $this->form_validation->set_message('email_unique', 'There is already a member with that email');
+            return FALSE;
+        }
+        
+        return TRUE;
     }
 
 }

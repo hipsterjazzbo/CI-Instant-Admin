@@ -64,6 +64,32 @@ class Page_model extends CI_Model {
         
         return $this->db->insert_id();
     }
+    
+    function member_exists($email)
+    {
+        $query = $this->db->get_where('members', array('member_email' => $email));
+        return $query->num_rows() ? TRUE : FALSE;
+    }
+    
+    function get_sales_number()
+    {
+        $query = $this->db->select_max('sale_id')->get('sales');
+        return 'LR' . (22300 + $query->row()->sale_id + 1);
+    }
+    
+    function get_products_by_type()
+    {
+        $query = $this->db->get('product_types');
+        $product_types = $query->result();
+        
+        foreach ($product_types as $key => $product_type)
+        {
+            $query = $this->db->get_where('products', array('product_type_id' => $product_type->product_type_id));
+            $product_types[$key]->products = $query->result();
+        }
+        
+        return $product_types;
+    }
 
 }
 

@@ -10,6 +10,7 @@ class Page extends CI_Controller {
         parent::__construct();
         $this->load->model('page_model');
         $this->load->library('ia_auth', NULL, 'auth');
+        $this->load->helper('form');
 
         if ( ! $this->auth->logged_in())
         {
@@ -33,6 +34,11 @@ class Page extends CI_Controller {
             case 'register':
                 $data['groups'] = $this->page_model->get_groups();
                 $data['stores'] = $this->page_model->get_stores(1, true);
+                break;
+            
+            case 'record_sales':
+                $data['sales_number']  = $this->page_model->get_sales_number();
+                $data['product_types'] = $this->page_model->get_products_by_type();
                 break;
         }
 
