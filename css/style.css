@@ -331,11 +331,12 @@ nav li a {
 #left {
 	width: 290px;
 	margin-right: 24px;
-	height: 579px;
+	height: 540px;
 	margin-left: 32px;
 	text-align: justify;
 	word-spacing: -1px;
 	font-size: 11px;
+	overflow: auto;
 }
 
 #right {
@@ -360,6 +361,87 @@ nav li a {
 
 #right .col-right {
 	
+}
+
+.front-form {
+	width: 100%;
+	overflow: hidden;
+}
+
+.front-form label {
+	float: left;
+	width: 60px;
+	text-align: right;
+	clear: left;
+	line-height: 11px;
+}
+
+.front-form input {
+	float: left;
+	clear: right;
+	margin-bottom: 5px;
+	border: 1px solid #336bd7;
+	width: 200px;
+	margin-left: 5px;
+	height: 16px;
+}
+
+.front-form select {
+	float: left;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	width: 200px;
+	border: 1px solid #336bd7;
+	background-color: #fff;
+	height: 16px;
+}
+
+.front-form select[name="title"] {
+	width: 60px;
+}
+
+.front-form input[name="address_number"] {
+	width: 50px;
+}
+
+.front-form input[name="address_street"] {
+	width: 142px;
+}
+
+.front-form input[name="address_suburb"] {
+	width: 62px;
+	margin-left: 65px;
+}
+
+.front-form input[name="address_city"] {
+	width: 71px;
+}
+
+.front-form input[name="address_postcode"] {
+	width: 50px;
+}
+
+#register-form input[name="password"] {
+	width: 74px;
+	clear: none;
+}
+
+.front-form label[for="password_conf"] {
+	clear: none;
+}
+
+.front-form input[name="password_conf"] {
+	width: 58px;
+}
+
+.front-form p.blue a {
+	float: left;
+	margin-left: 65px;
+	margin-top: -3px;
+	margin-bottom: 5px;
+	text-decoration: none;
+	color: #336bd7;
+	font-weight: bold;
 }
 
 footer {

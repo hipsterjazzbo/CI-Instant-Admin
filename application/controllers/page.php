@@ -8,6 +8,7 @@ class Page extends CI_Controller {
     function __construct()
     {
         parent::__construct();
+        $this->load->model('page_model');
         $this->load->library('ia_auth', NULL, 'auth');
 
         if ( ! $this->auth->logged_in())
@@ -26,6 +27,14 @@ class Page extends CI_Controller {
             $this->load->helper('url');
             redirect('page/home');
         }
+        
+        switch ($method)
+        {
+            case 'register':
+                $data['groups'] = $this->page_model->get_groups();
+                $data['stores'] = $this->page_model->get_stores(1, true);
+                break;
+        }
 
         $data['page'] = $method;
         $this->load->view('public_main', $data);
@@ -33,5 +42,5 @@ class Page extends CI_Controller {
 
 }
 
-/* End of file members.php */
-/* Location: ./application/controllers/members.php */
+/* End of file page.php */
+/* Location: ./application/controllers/page.php */

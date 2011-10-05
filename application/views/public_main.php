@@ -10,6 +10,8 @@
 	<title>Lumix Rewards</title>
 	<meta name="description" content="">
 	<meta name="author" content="http://www.wasabi.co">
+        
+        <script src="<?= site_url('js/jquery-1.5.2.min.js') ?>"></script>
 
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 
